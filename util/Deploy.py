@@ -36,25 +36,26 @@ class Deploy(object):
         if folder != "":
             for f in os.listdir(folder):
                 self.fromTo(folder, f, dest, f)
-                #if os.path.islink(f):
-                #    os.symlink(os.readlink(f), os.path.join(dest, f))
-                #else:
-                #    os.symlink(os.path.join(folder, f), os.path.join(dest, f))
 
         if 'extra' in ob:
             for ele in ob['extra']:
                 if type(ele) is dict:
                     for k,v in ele.iteritems():
-                        #print "link with alternative"
-                        sourceFolder = self.setting['resources'][k.split("/")[0]]['source']
-                        fromF = k.split("/")[1]
-                        self.fromTo(sourceFolder, fromF, dest, v)
-                        #print "end"
+                        if len(k.split("/")) == 1:
+                            sourceFolder = self.toFolder + os.sep + self.setting['resources'][k.split("/")[0]]['layout']
+                            self.fromTo(os.path.dirname(sourceFolder), os.path.basename(sourceFolder), dest, v)
+                        else:
+                            sourceFolder = self.setting['resources'][k.split("/")[0]]['source']
+                            fromF = k.split("/")[1]
+                            self.fromTo(sourceFolder, fromF, dest, v)
                 else:
-                    #print "> link directly"
-                    sourceFolder = self.setting['resources'][ele.split("/")[0]]['source']
-                    fromF = ele.split("/")[1]
-                    self.fromTo(sourceFolder, fromF, dest, fromF)
+                    if len(ele.split("/")) == 1:
+                        sourceFolder = self.toFolder + os.sep + self.setting['resources'][ele.split("/")[0]]['layout']
+                        self.fromTo(os.path.dirname(sourceFolder), ele, dest, ele)
+                    else:
+                        sourceFolder = self.setting['resources'][ele.split("/")[0]]['source']
+                        fromF = ele.split("/")[1]
+                        self.fromTo(sourceFolder, fromF, dest, fromF)
 
     def iter(self):
         for step in self.setting['resources']:
