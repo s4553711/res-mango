@@ -1,0 +1,30 @@
+{
+	"resources" : {
+		"snp.mouse.ucsc.dbsnp138.mm10" : {
+			"name" : "snp.mouse.ucsc.dbsnp138.mm10",
+			"ver" : "-",
+			"source" : "/mnt/repo1/wo/bio/snp.mouse.ucsc.dbsnp138.mm10/"
+		},
+		"human.g1k.v37.phase2" : {
+			"name" : "human.g1k.v37.phase2",
+			"ver" : "v37p2",
+			"source" : "/mnt/repo1/wo/bio/human.g1k.v37.phase2",
+			"layout" : "/wo/bio/human.g1k.v37.phase2",
+			"extra" : [
+				{ "human.g1k.v37/.zshrc" : "evnrc" },
+				"snp.mouse.ucsc.dbsnp138.mm10/snp138.txt-col1.18.vcf"
+			]
+		},
+		"human.g1k.v37" : {
+			"name" : "human.g1k.v37",
+			"ver" : "v37",
+			"source" : "/mnt/repo1/wo/bio/human.g1k.v37",
+			"layout" : "/wo/bio/human.g1k.v37",
+			"extra" : [
+				"human.g1k.v37.phase2",
+				"human.g1k.v37.phase2/hs37d5.fasta",
+				{ "human.g1k.v37.phase2/hs37d5.fasta" : "ref.fasta" }
+			]
+		}
+	}
+}
