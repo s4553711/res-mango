@@ -50,8 +50,8 @@ class Deploy(object):
                             self.fromTo(sourceFolder, fromF, dest, v)
                 else:
                     if len(ele.split("/")) == 1:
-                        sourceFolder = self.toFolder + os.sep + self.setting['resources'][ele.split("/")[0]]['layout']
-                        self.fromTo(os.path.dirname(sourceFolder), ele, dest, ele)
+                        for gele in glob.glob(self.setting['resources'][ele.split("/")[0]]['source']):
+                            self.fromTo(os.path.dirname(gele), os.path.basename(gele), dest, os.path.basename(gele))
                     else:
                         sourceFolder = self.setting['resources'][ele.split("/")[0]]['source']
                         fromF = ele.split("/")[1]
